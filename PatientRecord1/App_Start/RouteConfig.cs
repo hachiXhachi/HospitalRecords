@@ -13,7 +13,7 @@ namespace PatientRecord1
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                name: "NoPatientIndex",
+                name: "patientredirect",
                 url: "Patient/Index",
                 defaults: new { controller = "Home", action = "Index" }
             );

@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select id="gender" name="gender">
-                            <option selected disabled>Choose Gender</option>
+                            <option value="" selected disabled>Choose Gender</option>
                             <option id="M" value="Male">Male</option>
                             <option id="F" value="Female">Female</option>
                         </select>
@@ -46,7 +46,8 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" id="submit">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+            <button type="button" id="cancel"  class="btn btn-danger" style="display:none;" onClick="cancelEdit();">Cancel</button>
         </form>
     </div>
     <br />
@@ -96,6 +97,18 @@
         } else {
             add();
         }
+    }
+    function cancelEdit() {
+        document.getElementById('Fname').value = "";
+        document.getElementById('Lname').value = "";
+        document.getElementById('Mname').value = "";
+        document.getElementById('suffix').value = "";
+        document.getElementById('gender').value = '';
+        document.getElementById('Bdate').value = "";
+        document.getElementById('diagnosis').value = "";
+        document.getElementById('submit').innerHTML = "Submit";
+        document.getElementById('cancel').style.display = "none";
+        editingId = null;
     }
     //Add
     function add() {
@@ -210,6 +223,8 @@
         document.getElementById('gender').value = gender;
         document.getElementById('Bdate').value = bday;
         document.getElementById('diagnosis').value = diagnosis;
+        document.getElementById('cancel').style.display = "block";
+
         alert("You can now edit this record");
     });
 
