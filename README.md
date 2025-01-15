@@ -13,6 +13,8 @@ This is a simple Patient Record CRUD (Create, Read, Update, Delete) System imple
 - Visual Studio 2017
 - .NET Framework 4.6.1
 - Microsoft SQL Server 
-
+1. Install Visual Studio with C# and .NET support.
+2. Open Microsoft SQL Server and import the database (HospitalRecordCopy)
+3. Run the Program
 
 
