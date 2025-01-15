@@ -98,6 +98,7 @@
             add();
         }
     }
+
     function cancelEdit() {
         document.getElementById('Fname').value = "";
         document.getElementById('Lname').value = "";
@@ -110,6 +111,31 @@
         document.getElementById('cancel').style.display = "none";
         editingId = null;
     }
+
+    $(document).on('click', '.edit', function () {
+        document.getElementById('submit').innerHTML = "Update";
+        var row = $(this).closest('tr');
+        editingId = row.data('id');
+
+        var fname = row.find('td').eq(1).text();
+        var mname = row.find('td').eq(2).text();
+        var lname = row.find('td').eq(3).text();
+        var suffix = row.find('td').eq(4).text();
+        var bday = row.find('td').eq(5).text();
+        var gender = row.find('td').eq(6).text();
+        var diagnosis = row.find('td').eq(7).text();
+        document.getElementById('Fname').value = fname;
+        document.getElementById('Lname').value = lname;
+        document.getElementById('Mname').value = mname;
+        document.getElementById('suffix').value = suffix;
+        document.getElementById('gender').value = gender;
+        document.getElementById('Bdate').value = bday;
+        document.getElementById('diagnosis').value = diagnosis;
+        document.getElementById('cancel').style.display = "block";
+
+        alert("You can now edit this record");
+    });
+
     //Add
     function add() {
         var fname = document.getElementById('Fname').value;
@@ -180,7 +206,7 @@
             }
         });
     }
-
+    //delete
     $(document).on('click', '.delete', function () {
         var row = $(this).closest('tr');
         editingId = row.data('id');
@@ -203,30 +229,7 @@
 
         }
     });
-    //delete
-    $(document).on('click', '.edit', function () {
-        document.getElementById('submit').innerHTML = "Update";
-        var row = $(this).closest('tr');
-        editingId = row.data('id'); 
 
-        var fname = row.find('td').eq(1).text();
-        var mname = row.find('td').eq(2).text();
-        var lname = row.find('td').eq(3).text();
-        var suffix = row.find('td').eq(4).text();
-        var bday = row.find('td').eq(5).text();
-        var gender = row.find('td').eq(6).text();
-        var diagnosis = row.find('td').eq(7).text();
-        document.getElementById('Fname').value = fname;
-        document.getElementById('Lname').value = lname;
-        document.getElementById('Mname').value = mname;
-        document.getElementById('suffix').value = suffix;
-        document.getElementById('gender').value = gender;
-        document.getElementById('Bdate').value = bday;
-        document.getElementById('diagnosis').value = diagnosis;
-        document.getElementById('cancel').style.display = "block";
-
-        alert("You can now edit this record");
-    });
 
 
 </script>
