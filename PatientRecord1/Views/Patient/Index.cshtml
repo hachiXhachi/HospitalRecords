@@ -1,57 +1,72 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<head>
-    <link rel="stylesheet" type="text/css" href="Content/style.css">
-</head>
 <center>
-    <div class="form-container">
-        <h2>Patient Information</h2>
-        <form id="form">
-            <div class="form-row">
-                <div class="form-column">
-                    <div class="form-group">
-                        <label for="Fname">First Name</label>
-                        <input type="text" id="Fname" placeholder="Enter your first name" />
-                    </div>
-                    <div class="form-group">
-                        <label for="Mname">Middle Name</label>
-                        <input type="text" id="Mname" placeholder="Enter your middle name" />
-                    </div>
-                    <div class="form-group">
-                        <label for="Lname">Last Name</label>
-                        <input type="text" id="Lname" placeholder="Enter your last name" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="suffix">Suffix</label>
-                        <input type="text" id="suffix" placeholder="e.g., Jr., Sr." />
-                    </div>
+    <!-- modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel"><b>Patient Information</b></h4>
                 </div>
-                <div class="form-column">
-                    <div class="form-group">
-                        <label for="Bdate">Birth Date</label>
-                        <input type="date" id="Bdate" />
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select id="gender" name="gender">
-                            <option value="" selected disabled>Choose Gender</option>
-                            <option id="M" value="Male">Male</option>
-                            <option id="F" value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="diagnosis">Diagnosis</label>
-                        <textarea id="diagnosis" placeholder="Enter diagnosis details" required></textarea>
-                    </div>
+                <!-- body modal -->
+                <div class="modal-body">
+                    <form id="form">
+                        <div class="form-row">
+
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label for="Fname">First Name</label>
+                                    <input type="text" class="form-control" id="Fname" placeholder="Enter your first name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Mname">Middle Name</label>
+                                    <input type="text" class="form-control" id="Mname" placeholder="Enter your middle name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Lname">Last Name</label>
+                                    <input type="text" class="form-control" id="Lname" placeholder="Enter your last name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="suffix">Suffix</label>
+                                    <input type="text" class="form-control" id="suffix" placeholder="e.g., Jr., Sr." />
+                                </div>
+                            </div>
+
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label for="Bdate">Birth Date</label>
+                                    <input type="date" class="form-control" id="Bdate" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-control" id="gender" name="gender">
+                                        <option value="" selected disabled>Choose Gender</option>
+                                        <option id="M" value="Male">Male</option>
+                                        <option id="F" value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="diagnosis">Diagnosis</label>
+                                    <textarea class="form-control" id="diagnosis" placeholder="Enter diagnosis details" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                            <button type="button" id="cancel" class="btn btn-danger" data-dismiss="modal" onClick="cancelEdit();">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" id="submit">Submit</button>
-            <button type="button" id="cancel"  class="btn btn-danger" style="display:none;" onClick="cancelEdit();">Cancel</button>
-        </form>
+        </div>
     </div>
+
     <br />
     <h2><b>Patient Records</b></h2>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+        Add
+    </button>
     <table class="table">
         <tr>
             <th width="15%">ID</th>
@@ -67,7 +82,7 @@
 
         @foreach (Patient item in Model as IEnumerable<PatientRecord1.Patient>)
         {
-                <tr data-id="@item.ID">
+            <tr data-id="@item.ID">
                 <td>@(item.ID)</td>
                 <td>@(item.Firstname ?? "None")</td>
                 <td>@(item.Middlename ?? "None")</td>
@@ -77,7 +92,7 @@
                 <td>@(item.Gender ?? "None")</td>
                 <td>@(item.InitialDiagnosis)</td>
                 <td>
-                    <button type="button" class="btn btn-primary edit">Edit</button>
+                    <button type="button" class="btn btn-primary edit" data-toggle="modal" data-target="#exampleModal">Edit</button>
                     <button type="button" class="btn btn-danger delete">Delete</button>
                 </td>
             </tr>
@@ -92,6 +107,14 @@
 
     document.getElementById('form').onsubmit = function (event) {
         event.preventDefault();
+
+        var lname = document.getElementById('Lname').value.trim();
+        var diagnosis = document.getElementById('diagnosis').value.trim();
+
+        if (!lname || !diagnosis) {
+            alert("Please fill out all required fields properly.");
+            return;
+        }
         if (editingId) {
             update(editingId);
         } else {
@@ -108,7 +131,6 @@
         document.getElementById('Bdate').value = "";
         document.getElementById('diagnosis').value = "";
         document.getElementById('submit').innerHTML = "Submit";
-        document.getElementById('cancel').style.display = "none";
         editingId = null;
     }
 
@@ -131,9 +153,8 @@
         document.getElementById('gender').value = gender;
         document.getElementById('Bdate').value = bday;
         document.getElementById('diagnosis').value = diagnosis;
-        document.getElementById('cancel').style.display = "block";
+ 
 
-        alert("You can now edit this record");
     });
 
     //Add
