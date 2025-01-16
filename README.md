@@ -1,7 +1,20 @@
-Simple Crud System for Patient Records using C# .NET Web Application Framework MVC.  
-To run the code, just simply add open this project to VSCODE and import the database file named HospitalRecordCopy to Sql server,
-after importing the database just click the run to open the web app.
-![image](https://github.com/user-attachments/assets/275c50ad-8b6d-4ebe-81ba-15c3f9d730f3)
-![image](https://github.com/user-attachments/assets/98b2dabb-7e87-44b7-94cb-892fc32af499)
+# Patient Record CRUD System
 
-It can Add, Update, and Delete record.
+## Overview
+This is a simple Patient Record CRUD (Create, Read, Update, Delete) System implemented using C# and the .NET Framework. .
+
+## Features
+- **Create:** Add new patient records.
+- **Read:** View patient records.
+- **Update:** Modify existing patient records.
+- **Delete:** Remove patient records.
+- **Patient Information:** Includes fields like Name, Gender, Birthday and Initial Diagnosis.
+## Prerequisites
+- Visual Studio 2017
+- .NET Framework 4.6.1
+- Microsoft SQL Server 
+1. Install Visual Studio with C# and .NET support.
+2. Open Microsoft SQL Server and import the database (HospitalRecordCopy)
+3. Run the Program
+
+
